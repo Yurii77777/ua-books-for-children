@@ -1,0 +1,82 @@
+/**
+ * Reset basic CSS styles v.1.0.0
+ * Made by Yurets in UA!
+ * Copyright (c) GPL License <2021> <Yurii Andriiko>
+ * http://yurets.info/
+ * Telegram @Yurets7777 E-mail: yuretshome@gmail.com
+ * "Роби добре, та тільки добре! А можеш? - Роби краще!"
+ */
+
+.header {
+    @include flex-row-betw-cent;
+    height: 60px;
+    padding: 12px 0;
+    background-color: $black-clr;
+
+    &__logo-link > span,
+    &__good-evening-link > span {
+        display: none;
+    }
+
+    &__logo-link > span.active,
+    &__good-evening-link > span.active {
+        display: inline;
+    }
+
+    &__logo-img {
+        width: 100%;
+        max-width: 260px;
+        margin: 10px 0 0 10px;
+    }
+
+    &__good-evening-link {
+        display: none;
+    }
+
+    &__lang-container,
+    &__languages {
+        @include flex-row-betw-cent;
+    }
+
+    &__languages {
+        font-size: 1.8rem;
+        padding: 0 10px;
+        color: $white-clr;
+    }
+
+    &__language {
+        margin: 0 4px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+    &__language:hover,
+    &__language:focus,
+    &__language:active {
+        opacity: 0.5;
+    }
+
+    &__language.active {
+        color: $active-lang-clr;
+    }
+}
+
+@media (min-width: 768px) {
+    .header {
+        &__good-evening-link {
+            display: block;
+            margin-right: 15px;
+        }
+
+        &__good-evening-img {
+            max-width: 200px;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .header {
+        height: 88px;
+        padding: 20px 0;
+    }
+}

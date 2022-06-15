@@ -1,0 +1,45 @@
+/**
+ * Reset basic CSS styles v.1.0.0
+ * Made by Yurets in UA!
+ * Copyright (c) GPL License <2021> <Yurii Andriiko>
+ * http://yurets.info/
+ * Telegram @Yurets7777 E-mail: yuretshome@gmail.com
+ * "Роби добре, та тільки добре! А можеш? - Роби краще!"
+ */
+
+@import "./reset";
+@import "./settings";
+@import "./UI_Kit/ui-kit";
+@import "./mixins";
+@import "./header";
+
+body {
+    font-family: din_pro_regular, Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    background-color: $black-clr;
+    color: $black-clr;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 992px) {
+}
+
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 1400px) {
+}
