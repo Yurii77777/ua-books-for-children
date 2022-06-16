@@ -1,0 +1,42 @@
+/**
+ * Reset basic CSS styles v.1.0.0
+ * Made by Yurets in UA!
+ * Copyright (c) GPL License <2021> <Yurii Andriiko>
+ * http://yurets.info/
+ * Telegram @Yurets7777 E-mail: yuretshome@gmail.com
+ * "Роби добре, та тільки добре! А можеш? - Роби краще!"
+ */
+
+.about-us {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background-color: $azure-clr;
+
+    &__content-container {
+        max-width: 1100px;
+        padding: 20px;
+        margin: 0 auto;
+        background-color: $white-clr;
+    }
+
+    &__title {
+        font-size: 2rem;
+        font-weight: 600;
+    }
+
+    &__title > span,
+    &__paragraph > span {
+        display: none;
+    }
+
+    &__title > span.active,
+    &__paragraph > span.active {
+        display: block;
+    }
+
+    &__paragraph {
+        font-size: 1.5rem;
+        text-align: justify;
+        margin-bottom: 10px;
+    }
+}
