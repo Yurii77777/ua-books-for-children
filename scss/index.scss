@@ -7,6 +7,54 @@
  * "Роби добре, та тільки добре! А можеш? - Роби краще!"
  */
 
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/montserrat-v24-latin_cyrillic-regular.eot");
+    src: local(""),
+        url("../fonts/montserrat-v24-latin_cyrillic-regular.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/montserrat-v24-latin_cyrillic-regular.woff2")
+            format("woff2"),
+        url("../fonts/montserrat-v24-latin_cyrillic-regular.woff")
+            format("woff"),
+        url("../fonts/montserrat-v24-latin_cyrillic-regular.ttf")
+            format("truetype"),
+        url("../fonts/montserrat-v24-latin_cyrillic-regular.svg#Montserrat")
+            format("svg");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 600;
+    src: url("../fonts/montserrat-v24-latin_cyrillic-600.eot");
+    src: local(""),
+        url("../fonts/montserrat-v24-latin_cyrillic-600.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/montserrat-v24-latin_cyrillic-600.woff2") format("woff2"),
+        url("../fonts/montserrat-v24-latin_cyrillic-600.woff") format("woff"),
+        url("../fonts/montserrat-v24-latin_cyrillic-600.ttf") format("truetype"),
+        url("../fonts/montserrat-v24-latin_cyrillic-600.svg#Montserrat")
+            format("svg");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 800;
+    src: url("../fonts/montserrat-v24-latin_cyrillic-800.eot");
+    src: local(""),
+        url("../fonts/montserrat-v24-latin_cyrillic-800.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/montserrat-v24-latin_cyrillic-800.woff2") format("woff2"),
+        url("../fonts/montserrat-v24-latin_cyrillic-800.woff") format("woff"),
+        url("../fonts/montserrat-v24-latin_cyrillic-800.ttf") format("truetype"),
+        url("../fonts/montserrat-v24-latin_cyrillic-800.svg#Montserrat")
+            format("svg");
+}
+
 @import "./reset";
 @import "./settings";
 @import "./UI_Kit/ui-kit";
@@ -15,7 +63,7 @@
 @import "./top-banner";
 
 body {
-    font-family: din_pro_regular, Helvetica, Arial, sans-serif;
+    font-family: "Montserrat";
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;

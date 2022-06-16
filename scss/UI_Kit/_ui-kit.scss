@@ -1,0 +1,25 @@
+/**
+ * Reset basic CSS styles v.1.0.0
+ * Made by Yurets in UA!
+ * Copyright (c) GPL License <2021> <Yurii Andriiko>
+ * http://yurets.info/
+ * Telegram @Yurets7777 E-mail: yuretshome@gmail.com
+ * "Роби добре, та тільки добре! А можеш? - Роби краще!"
+ */
+
+.primary-button {
+    color: $black-clr;
+    background-color: $active-lang-clr;
+    border: none;
+    min-width: 115px;
+    min-height: 50px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.primary-button:hover,
+.primary-button:focus,
+.primary-button:active {
+    background-color: $blue-clr;
+    color: $white-clr;
+}
