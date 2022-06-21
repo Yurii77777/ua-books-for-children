@@ -1,0 +1,146 @@
+/**
+ * Reset basic CSS styles v.1.0.0
+ * Made by Yurets in UA!
+ * Copyright (c) GPL License <2021> <Yurii Andriiko>
+ * http://yurets.info/
+ * Telegram @Yurets7777 E-mail: yuretshome@gmail.com
+ * "Роби добре, та тільки добре! А можеш? - Роби краще!"
+ */
+
+.addresses {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background-color: $azure-clr;
+
+    &__content-container {
+        max-width: 1100px;
+        padding: 20px;
+        margin: 0 auto;
+        background-color: $white-clr;
+    }
+
+    &__title {
+        font-size: 2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    &__title > span {
+        display: none;
+    }
+
+    &__title > span.active {
+        display: block;
+    }
+
+    &__filter-list {
+        @include flex-column-betw-cent;
+        width: 250px;
+        margin: 20px auto;
+    }
+
+    &__filter-item > span {
+        display: none;
+    }
+
+    &__filter-item > span.active {
+        display: block;
+    }
+
+    &__filter-item,
+    &__location-list {
+        font-size: 1.3rem;
+        text-align: center;
+        border: 1px solid $gray-clr;
+        border-radius: 5px;
+        width: 100%;
+        padding: 5px 10px;
+        margin-bottom: 5px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    &__filter-item::after {
+        content: "\142F";
+        color: $dark-gray-clr;
+        position: absolute;
+        right: 15px;
+        top: 25%;
+    }
+
+    &__map-wrapper {
+        @include flex-column-betw-cent;
+    }
+
+    &__location-list {
+        order: 1;
+    }
+
+    &__map-container {
+        order: 2;
+    }
+
+    &__map-container {
+        width: 100%;
+        height: 250px;
+    }
+}
+
+@media (min-width: 576px) {
+    .addresses {
+        &__filter-list {
+            width: 350px;
+        }
+
+        &__filter-item {
+            font-size: 1.4rem;
+            padding: 10px 15px;
+        }
+
+        &__map-container {
+            height: 350px;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .addresses {
+        &__filter-list {
+            flex-direction: row;
+            width: 90%;
+        }
+
+        &__filter-item {
+            margin-bottom: 0;
+            margin-right: 10px;
+        }
+
+        &__filter-item:last-child {
+            margin-right: 0;
+        }
+
+        &__map-wrapper {
+            flex-direction: row;
+        }
+
+        &__location-list {
+            width: 20%;
+            order: 2;
+        }
+
+        &__map-container {
+            width: 80%;
+            order: 1;
+            margin-right: 10px;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .addresses {
+        &__map-container {
+            height: 450px;
+        }
+    }
+}

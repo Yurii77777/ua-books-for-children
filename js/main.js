@@ -55,7 +55,7 @@ const $languages = document.querySelectorAll(".header__languages");
 $languages[0].addEventListener("click", (e) => {
     e.stopPropagation();
 
-    let userClick = e.target;
+    const userClick = e.target;
     const langaugesList = Array.from($languages[0].children);
     const selectedLanguageIndex = langaugesList.indexOf(userClick);
 

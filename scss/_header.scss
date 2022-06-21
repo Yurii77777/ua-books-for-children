@@ -13,6 +13,10 @@
     padding: 12px 0;
     background-color: $black-clr;
 
+    &__logo {
+        margin-right: 15px;
+    }
+
     &__logo-link > span,
     &__good-evening-link > span {
         display: none;
@@ -29,6 +33,10 @@
         margin: 10px 0 0 10px;
     }
 
+    &__emblem {
+        margin-right: auto;
+    }
+
     &__good-evening-link {
         display: none;
     }
@@ -36,6 +44,10 @@
     &__lang-container,
     &__languages {
         @include flex-row-betw-cent;
+    }
+
+    &__emblem {
+        display: none;
     }
 
     &__languages {
@@ -63,8 +75,16 @@
 
 @media (min-width: 768px) {
     .header {
+        &__emblem,
         &__good-evening-link {
             display: block;
+        }
+
+        &__emblem {
+            height: 50px;
+        }
+
+        &__good-evening-link {
             margin-right: 15px;
         }
 
@@ -78,5 +98,9 @@
     .header {
         height: 88px;
         padding: 20px 0;
+
+        &__emblem {
+            height: 80px;
+        }
     }
 }
