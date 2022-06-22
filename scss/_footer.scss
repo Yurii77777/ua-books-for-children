@@ -1,0 +1,155 @@
+/**
+ * Reset basic CSS styles v.1.0.0
+ * Made by Yurets in UA!
+ * Copyright (c) GPL License <2021> <Yurii Andriiko>
+ * http://yurets.info/
+ * Telegram @Yurets7777 E-mail: yuretshome@gmail.com
+ * "Роби добре, та тільки добре! А можеш? - Роби краще!"
+ */
+
+.footer {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background-color: $azure-clr;
+
+    &__content-container {
+        @include flex-column-betw-cent;
+        width: 90%;
+        max-width: 1100px;
+        padding: 20px 0;
+        margin: 0 auto;
+    }
+
+    &__phones {
+        @include flex-row-cent-cent;
+        font-size: 1.5rem;
+        font-weight: 600;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    &__phones-l,
+    &__phones-r {
+        @include flex-column-betw-cent;
+    }
+
+    &__phones-l {
+        margin-right: 12%;
+    }
+
+    &__phones-r {
+        margin-right: -20px;
+    }
+
+    &__phones-l > &__contacts-phone,
+    &__phones-r > &__contacts-phone {
+        margin-bottom: 15px;
+    }
+
+    &__phones-l > &__contacts-phone:last-child,
+    &__phones-r > &__contacts-phone:last-child {
+        margin-bottom: 0;
+    }
+
+    &__contacts-phone {
+        color: $black-clr;
+        cursor: pointer;
+        position: relative;
+    }
+
+    &__contacts-phone::before {
+        background: url("../images/icons/icon-phone.svg") no-repeat 50%;
+        background-size: contain;
+        content: "";
+        height: 20px;
+        left: -20%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+    }
+
+    &__logo-link > span,
+    &__emblem > span,
+    &__paragraph > span,
+    &__copyright > span {
+        display: none;
+    }
+
+    &__logo-link > span.active,
+    &__emblem > span.active,
+    &__paragraph > span.active,
+    &__copyright > span.active {
+        display: block;
+    }
+
+    &__email {
+        @include flex-column-betw-cent;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $black-clr;
+        margin-bottom: 20px;
+    }
+
+    &__email-link {
+        color: $black-clr;
+        margin-bottom: 15px;
+    }
+
+    &__logo-container {
+        width: 300px;
+    }
+
+    &__logo-link {
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    &__copyright {
+        @include flex-row-cent-cent;
+        font-size: 1.2rem;
+        padding: 15px 0;
+        color: $dark-gray-clr;
+    }
+
+    &__copyright-link {
+        color: $dark-gray-clr;
+        cursor: pointer;
+    }
+}
+
+@media (min-width: 768px) {
+    .footer {
+        &__content-container {
+            flex-direction: row;
+        }
+
+        &__phones {
+            justify-content: flex-start;
+            width: 50%;
+            margin: 0 0 0 4%;
+        }
+
+        &__email {
+            width: 30%;
+            margin: 0 2% 0 0;
+        }
+
+        &__logo-container {
+            width: 17%;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .footer {
+        &__phones,
+        &__email {
+            width: 33%;
+        }
+
+        &__logo-container {
+            width: 25%;
+        }
+    }
+}
