@@ -158,6 +158,7 @@
     &__help-message-paragraph:first-child {
         font-weight: 800;
         text-transform: uppercase;
+        margin-bottom: 10px;
     }
 
     &__help-contacts {
@@ -175,6 +176,9 @@
 
 @media (min-width: 768px) {
     .top-banner {
+        min-height: 700px;
+        height: auto;
+
         &__contacts-container {
             padding-top: 30px;
         }
@@ -207,6 +211,8 @@
 
         &__help-block {
             margin-bottom: 0;
+            width: 340px;
+            height: 200px;
         }
 
         &__help-block:first-child {
@@ -218,7 +224,6 @@
 @media (min-width: 992px) {
     .top-banner {
         background-position: center;
-        height: 700px;
 
         &__title {
             font-size: 6rem;

@@ -21,6 +21,13 @@
     align-items: center;
 }
 
+@mixin flex-col-cent-cent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 @mixin flex-column-betw-cent {
     display: flex;
     flex-direction: column;

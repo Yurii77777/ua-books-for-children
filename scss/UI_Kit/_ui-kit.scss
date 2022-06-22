@@ -8,6 +8,7 @@
  */
 
 .primary-button {
+    @include flex-col-cent-cent;
     font-size: 1.3rem;
     text-align: center;
     color: $black-clr;
