@@ -40,6 +40,7 @@
     &__title > span,
     &__contacts-title > span,
     &__help-message-paragraph > span,
+    &__email-link > span,
     &__help-button > span {
         display: none;
     }
@@ -48,6 +49,7 @@
     &__title > span.active,
     &__contacts-title > span.active,
     &__help-message-paragraph > span.active,
+    &__email-link > span.active,
     &__help-button > span.active {
         display: inline;
     }
@@ -93,7 +95,8 @@
 
     &__contacts-phone:first-child::before,
     &__contacts-phone:nth-child(2)::before,
-    &__contacts-phone:nth-child(3)::before {
+    &__contacts-phone:nth-child(3)::before,
+    &__contacts-phone:nth-child(4)::before {
         content: "";
         width: 24px;
         height: 30px;
@@ -107,7 +110,8 @@
     }
 
     &__contacts-phone:nth-child(2)::before,
-    &__contacts-phone:nth-child(3)::before {
+    &__contacts-phone:nth-child(3)::before,
+    &__contacts-phone:nth-child(4)::before {
         background-image: url("../images/icons/word.svg");
     }
 
