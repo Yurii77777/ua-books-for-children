@@ -23,3 +23,49 @@
     background-color: $blue-clr;
     color: $white-clr;
 }
+
+.secondary-button {
+    font-size: 2rem;
+    text-transform: uppercase;
+    background: $white-clr;
+    border: none;
+    padding: 15px 35px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.secondary-button:hover,
+.secondary-button:focus,
+.secondary-button:active {
+    background: $black-clr;
+    color: $white-clr;
+}
+
+.secondary-button::before,
+.secondary-button::after {
+    background: $black-clr;
+    content: "";
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) skew(-28deg);
+    width: 10px;
+}
+
+.secondary-button:hover::before,
+.secondary-button:focus::before,
+.secondary-button:active::before,
+.secondary-button:hover::after,
+.secondary-button:focus::after,
+.secondary-button:active::after {
+    background: $white-clr;
+}
+
+.secondary-button::before {
+    left: 15px;
+}
+
+.secondary-button::after {
+    right: 15px;
+}

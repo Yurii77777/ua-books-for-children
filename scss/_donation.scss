@@ -1,0 +1,85 @@
+/**
+ * Reset basic CSS styles v.1.0.0
+ * Made by Yurets in UA!
+ * Copyright (c) GPL License <2021> <Yurii Andriiko>
+ * http://yurets.info/
+ * Telegram @Yurets7777 E-mail: yuretshome@gmail.com
+ * "Роби добре, та тільки добре! А можеш? - Роби краще!"
+ */
+
+.donation {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background-color: $white-clr;
+    padding-top: 10px;
+
+    &__content-container {
+        @include flex-column-betw-cent;
+        width: 90%;
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: $active-lang-clr;
+        border-radius: 19px;
+        padding: 10px 10px 20px;
+    }
+
+    &__title > span,
+    &__donate > span,
+    &__contact > span {
+        display: none;
+    }
+
+    &__title > span.active,
+    &__donate > span.active,
+    &__contact > span.active {
+        display: block;
+    }
+
+    &__title {
+        font-size: 2rem;
+        font-weight: 800;
+        text-align: center;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+    }
+
+    &__buttons-wrapper {
+        @include flex-column-betw-cent;
+        width: 100%;
+    }
+
+    &__donate,
+    &__contact {
+        width: 100%;
+    }
+
+    &__donate {
+        margin-bottom: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    .donation {
+        &__buttons-wrapper {
+            flex-direction: row;
+        }
+
+        &__donate {
+            margin: 0 20px 0 0;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .donation {
+        padding-top: 40px;
+
+        &__content-container {
+            padding: 15px 40px 30px;
+        }
+
+        &__title {
+            font-size: 3rem;
+        }
+    }
+}
