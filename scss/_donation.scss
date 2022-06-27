@@ -16,7 +16,7 @@
     &__content-container {
         @include flex-column-betw-cent;
         width: 90%;
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
         background-color: $active-lang-clr;
         border-radius: 19px;
@@ -25,13 +25,21 @@
 
     &__title > span,
     &__donate > span,
-    &__contact > span {
+    &__contact > span,
+    &__payment-subtitle > span,
+    &__payment-details-subparagraph > span,
+    &__payment-details-paragraph > span,
+    &__payment-details-comment > span {
         display: none;
     }
 
     &__title > span.active,
     &__donate > span.active,
-    &__contact > span.active {
+    &__contact > span.active,
+    &__payment-subtitle > span.active,
+    &__payment-details-subparagraph > span.active,
+    &__payment-details-paragraph > span.active,
+    &__payment-details-comment > span.active {
         display: block;
     }
 
@@ -46,6 +54,7 @@
     &__buttons-wrapper {
         @include flex-column-betw-cent;
         width: 100%;
+        margin-bottom: 20px;
     }
 
     &__donate,
@@ -56,16 +65,78 @@
     &__donate {
         margin-bottom: 10px;
     }
+
+    &__payment-details {
+        @include flex-col-cent-cent;
+        width: 100%;
+        color: $black-clr;
+    }
+
+    &__payment-subtitle {
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    &__payment-details-container {
+        @include flex-col-cent-cent;
+        width: inherit;
+    }
+
+    &__payment-details-comment,
+    &__payment-details-correspondents {
+        font-size: 1.2rem;
+        text-align: center;
+        text-decoration: underline;
+    }
+
+    &__payment-details-uah {
+        width: inherit;
+        margin-bottom: 10px;
+    }
+
+    &__payment-details-subparagraph {
+        font-size: 1.3rem;
+        letter-spacing: 1px;
+    }
+
+    &__payment-details-paragraph {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: $black-clr;
+    }
+
+    &__payment-details-euro {
+        width: inherit;
+    }
 }
 
 @media (min-width: 768px) {
     .donation {
         &__buttons-wrapper {
             flex-direction: row;
+            margin-bottom: 40px;
         }
 
         &__donate {
             margin: 0 20px 0 0;
+        }
+
+        &__payment-details-container {
+            flex-direction: row;
+            align-items: flex-start;
+        }
+
+        &__payment-details-uah {
+            margin-bottom: 0;
+        }
+
+        &__payment-details-uah,
+        &__payment-details-euro {
+            width: 50%;
         }
     }
 }
@@ -81,6 +152,19 @@
         &__title {
             font-size: 3rem;
             margin-bottom: 40px;
+        }
+
+        &__payment-subtitle,
+        &__payment-details-subparagraph {
+            font-size: 1.8rem;
+        }
+
+        &__payment-details-comment {
+            font-size: 1.5rem;
+        }
+
+        &__payment-details-paragraph {
+            font-size: 1.9rem;
         }
     }
 }
