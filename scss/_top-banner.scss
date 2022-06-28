@@ -204,19 +204,9 @@
             margin-right: 25px;
         }
 
-        &__help-info {
-            flex-direction: row;
-            justify-content: center;
-        }
-
         &__help-block {
-            margin-bottom: 0;
             width: 340px;
             height: 200px;
-        }
-
-        &__help-block:first-child {
-            margin-right: 20px;
         }
     }
 }
@@ -231,14 +221,17 @@
             margin: 15px 0;
         }
 
-        &__help-block:first-child {
-            margin-right: 40px;
+        &__help-info {
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        &__help-block {
+            margin: 0 40px 0 0;
+        }
+
+        &__help-block:last-child {
+            margin-right: 0;
         }
     }
-}
-
-@media (min-width: 1200px) {
-}
-
-@media (min-width: 1400px) {
 }

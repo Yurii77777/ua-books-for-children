@@ -76,3 +76,13 @@ $languages[0].addEventListener("click", (e) => {
         setLanguage(document, "de");
     }
 });
+
+// Прокрутка до блоку з контактами (Footer)
+const $getContactsButton = document.querySelectorAll(".donation__contact");
+const $footer = document.getElementById("footer");
+
+$getContactsButton[0].addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    $footer.scrollIntoView({ behavior: "smooth", block: "start" });
+});
