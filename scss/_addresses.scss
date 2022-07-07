@@ -40,12 +40,38 @@
         margin: 20px auto;
     }
 
-    &__filter-item > span {
+    &__filter-item > span,
+    &__country-filter-item > span,
+    &__country-filter-list {
         display: none;
     }
 
-    &__filter-item > span.active {
+    &__filter-item > span.active,
+    &__country-filter-item > span.active {
         display: block;
+    }
+
+    &__country-filter-list.active {
+        display: block;
+        position: absolute;
+        width: 90%;
+        max-height: 250px;
+        overflow-y: auto;
+        top: 100%;
+        border-radius: 5px;
+        background-color: $azure-clr;
+        z-index: 1;
+    }
+
+    &__country-filter-item {
+        @include flex-col-cent-cent;
+        height: 25px;
+    }
+
+    &__country-filter-item:hover,
+    &__country-filter-item:focus,
+    &__country-filter-item:active {
+        background-color: $white-clr;
     }
 
     &__filter-item,
