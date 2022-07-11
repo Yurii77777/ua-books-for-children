@@ -109,6 +109,11 @@
         color: $black-clr;
     }
 
+    &__qr-quick-pay {
+        width: 200px;
+        margin: 20px auto;
+    }
+
     &__payment-details-euro {
         width: inherit;
     }
@@ -165,6 +170,10 @@
 
         &__payment-details-paragraph {
             font-size: 1.9rem;
+        }
+
+        &__qr-quick-pay {
+            width: 250px;
         }
     }
 }
