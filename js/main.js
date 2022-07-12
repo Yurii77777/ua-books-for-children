@@ -94,19 +94,38 @@ const addresses = {
             countryTitleUa: "Україна",
             countryTitleEng: "Ukraine",
             countryTitleDe: "Ukraine",
-            countryCities: [],
+            countryRegions: [
+                {
+                    regionTitleUa: "Київський",
+                    regionTitleEng: "Kyivskyi",
+                    regionTitleDe: "Kyivskyi",
+                    regionCities: [],
+                },
+                {
+                    regionTitleUa: "Харківський",
+                    regionTitleEng: "Kharkiv",
+                    regionTitleDe: "Charkiw",
+                    regionCities: [],
+                },
+                {
+                    regionTitleUa: "Львівський",
+                    regionTitleEng: "Lviv",
+                    regionTitleDe: "Lemberg",
+                    regionCities: [],
+                },
+            ],
         },
         {
             countryTitleUa: "Польша",
             countryTitleEng: "Poland",
             countryTitleDe: "Polen",
-            countryCities: [],
+            countryRegions: [],
         },
         {
             countryTitleUa: "Німеччина",
             countryTitleEng: "Germany",
             countryTitleDe: "Deutschland",
-            countryCities: [],
+            countryRegions: [],
         },
     ],
 };
@@ -177,50 +196,163 @@ const getCounries = (data) => {
     return result;
 };
 
+// Отримати та підготувати список регіонів обраної країни
+const getRegions = (data) => {
+    let result = [];
+
+    const isCountrySelected =
+        filterByCountry.children[0].textContent !== "Країна";
+
+    if (!isCountrySelected) {
+        const selectedLanguage = getActiveLanguage($languages);
+
+        if (selectedLanguage === "ua") {
+            filterByRegion.children[0].textContent = "Виберіть країну!";
+            filterByRegion.children[0].style.color = "red";
+
+            setTimeout(() => {
+                filterByRegion.children[0].textContent = "Регіон";
+                filterByRegion.children[0].style.color = "#000";
+            }, 2000);
+        } else if (selectedLanguage === "eng") {
+            filterByRegion.children[1].textContent = "Choose a country!";
+            filterByRegion.children[1].style.color = "red";
+
+            setTimeout(() => {
+                filterByRegion.children[1].textContent = "Region";
+                filterByRegion.children[1].style.color = "#000";
+            }, 2000);
+        } else if (selectedLanguage === "de") {
+            filterByRegion.children[2].textContent = "Wähle ein Land!";
+            filterByRegion.children[2].style.color = "red";
+
+            setTimeout(() => {
+                filterByRegion.children[2].textContent = "Region";
+                filterByRegion.children[2].style.color = "#000";
+            }, 2000);
+        }
+    } else if (isCountrySelected) {
+        const selectedCountryTitleUa = filterByCountry.children[0].textContent;
+
+        // Явну перевірку чи є список країн не виконую
+        // оскільки якщо користувач потрапив в даний блок,
+        // то цю перевірку він вже "пройшов"
+        const countries = data?.countries;
+
+        for (let i = 0; i < countries.length; i++) {
+            const countryItem = countries[i];
+            const { countryTitleUa } = countryItem;
+
+            if (countryTitleUa === selectedCountryTitleUa) {
+                const countryRegions = countryItem?.countryRegions;
+
+                for (let k = 0; k < countryRegions.length; k++) {
+                    let dataObj = {};
+                    const { regionTitleUa, regionTitleEng, regionTitleDe } =
+                        countryRegions[k];
+
+                    dataObj["regionTitleUa"] = regionTitleUa;
+                    dataObj["regionTitleEng"] = regionTitleEng;
+                    dataObj["regionTitleDe"] = regionTitleDe;
+
+                    result.push(dataObj);
+                }
+            }
+        }
+    }
+
+    return result;
+};
+
 const createFilterListNode = (options) => {
-    const { parentClass, childClass, data } = options;
+    const { parentClass, childClass, data, variant } = options;
 
     let nodeString = null;
 
     const list = document.createElement("ul");
     list.classList.add(parentClass);
 
-    const countriesList = getCounries(addresses);
-    const isCountries = !!countriesList.length;
-    !isCountries && console.log("Список країн пустий ...");
+    const selectedLanguage = getActiveLanguage($languages);
 
-    if (isCountries) {
-        const selectedLanguage = getActiveLanguage($languages);
+    const createItemOfList = (options) => {
+        const {
+            childClass,
+            selectedLanguage,
+            itemTitleUa,
+            itemTitleEng,
+            itemTitleDe,
+        } = options;
 
-        for (let i = 0; i < countriesList.length; i++) {
-            const { countryTitleUa, countryTitleEng, countryTitleDe } =
-                countriesList[i];
+        const item = document.createElement("li");
+        item.classList.add(childClass);
 
-            const countryItem = document.createElement("li");
-            countryItem.classList.add(childClass);
+        const spanUa = document.createElement("span");
+        spanUa.setAttribute("data-lang", "ua");
+        selectedLanguage === "ua" && spanUa.classList.add("active");
+        spanUa.append(itemTitleUa);
+        item.append(spanUa);
 
-            const spanUa = document.createElement("span");
-            spanUa.setAttribute("data-lang", "ua");
-            selectedLanguage === "ua" && spanUa.classList.add("active");
-            spanUa.append(countryTitleUa);
-            countryItem.append(spanUa);
+        const spanEng = document.createElement("span");
+        spanEng.setAttribute("data-lang", "eng");
+        selectedLanguage === "eng" && spanEng.classList.add("active");
+        spanEng.append(itemTitleEng);
+        item.append(spanEng);
 
-            const spanEng = document.createElement("span");
-            spanEng.setAttribute("data-lang", "eng");
-            selectedLanguage === "eng" && spanEng.classList.add("active");
-            spanEng.append(countryTitleEng);
-            countryItem.append(spanEng);
+        const spanDe = document.createElement("span");
+        spanDe.setAttribute("data-lang", "de");
+        selectedLanguage === "de" && spanDe.classList.add("active");
+        spanDe.append(itemTitleDe);
+        item.append(spanDe);
 
-            const spanDe = document.createElement("span");
-            spanDe.setAttribute("data-lang", "de");
-            selectedLanguage === "de" && spanDe.classList.add("active");
-            spanDe.append(countryTitleDe);
-            countryItem.append(spanDe);
+        return item;
+    };
 
-            list.append(countryItem);
+    if (variant === "country") {
+        const countriesList = getCounries(data);
+        const isCountries = !!countriesList.length;
+        !isCountries && console.log("Список країн пустий ...");
+
+        if (isCountries) {
+            for (let i = 0; i < countriesList.length; i++) {
+                const { countryTitleUa, countryTitleEng, countryTitleDe } =
+                    countriesList[i];
+
+                const item = createItemOfList({
+                    childClass,
+                    selectedLanguage,
+                    itemTitleUa: countryTitleUa,
+                    itemTitleEng: countryTitleEng,
+                    itemTitleDe: countryTitleDe,
+                });
+
+                list.append(item);
+            }
+
+            nodeString = list;
         }
+    } else if (variant === "region") {
+        const regionsList = getRegions(data);
+        const isRegions = !!regionsList.length;
+        !isRegions && console.log("Список країн пустий ...");
 
-        nodeString = list;
+        if (isRegions) {
+            for (let i = 0; i < regionsList.length; i++) {
+                const { regionTitleUa, regionTitleEng, regionTitleDe } =
+                    regionsList[i];
+
+                const item = createItemOfList({
+                    childClass,
+                    selectedLanguage,
+                    itemTitleUa: regionTitleUa,
+                    itemTitleEng: regionTitleEng,
+                    itemTitleDe: regionTitleDe,
+                });
+
+                list.append(item);
+            }
+
+            nodeString = list;
+        }
     }
 
     return nodeString;
@@ -243,6 +375,14 @@ const isFilterListExist = (options) => {
             child.classList.contains("addresses__country-filter-list") &&
                 (result.isCountryList = true);
         }
+    } else if (region) {
+        const regionChildren = Array.from(filterByRegion.children);
+
+        for (let i = 0; i < regionChildren.length; i++) {
+            const child = regionChildren[i];
+            child.classList.contains("addresses__region-filter-list") &&
+                (result.isRegionList = true);
+        }
     }
 
     return result;
@@ -250,18 +390,18 @@ const isFilterListExist = (options) => {
 
 // Отримати обраний пункт зі списку
 const getSelectedFilterItem = (options) => {
-    const { event, isCountryItemSelected, isCountrySubItemSelected } = options;
+    const { event, isItemSelected, isSubItemSelected } = options;
     let result = {
         titleUa: null,
         titleEng: null,
         titleDe: null,
     };
 
-    if (isCountryItemSelected) {
+    if (isItemSelected) {
         result.titleUa = event.target.children[0].textContent;
         result.titleEng = event.target.children[1].textContent;
         result.titleDe = event.target.children[2].textContent;
-    } else if (isCountrySubItemSelected) {
+    } else if (isSubItemSelected) {
         result.titleUa = event.target.parentElement.children[0].textContent;
         result.titleEng = event.target.parentElement.children[1].textContent;
         result.titleDe = event.target.parentElement.children[2].textContent;
@@ -273,21 +413,29 @@ const getSelectedFilterItem = (options) => {
 // Встановити фільтр за країнами
 const setFilterByContry = (e) => {
     setIsFilterActice();
-    const { isCountryList, isRegionList, isCityList } = isFilterListExist({
+    const { isCountryList } = isFilterListExist({
         country: true,
     });
+    const { isRegionList } = isFilterListExist({
+        region: true,
+    });
 
-    const isCountryItemSelected =
-        e.target.className === "addresses__country-filter-item";
-
-    const isCountrySubItemSelected =
-        e.target.parentElement.className === "addresses__country-filter-item";
+    if (isRegionList) {
+        const regionsList = document.querySelectorAll(
+            ".addresses__region-filter-list"
+        );
+        regionsList[0].remove();
+        filterByRegion.children[0].textContent = "Регіон";
+        filterByRegion.children[1].textContent = "Region";
+        filterByRegion.children[2].textContent = "Region";
+    }
 
     if (!isCountryList) {
         const countryFilterNode = createFilterListNode({
             parentClass: "addresses__country-filter-list",
             childClass: "addresses__country-filter-item",
             data: addresses,
+            variant: "country",
         });
         countryFilterNode && filterByCountry.append(countryFilterNode);
         const countriesList = document.querySelectorAll(
@@ -308,11 +456,17 @@ const setFilterByContry = (e) => {
             countriesList[0].classList.add("active");
     }
 
-    if (isCountryItemSelected || isCountrySubItemSelected) {
+    const isItemSelected =
+        e.target.className === "addresses__country-filter-item";
+
+    const isSubItemSelected =
+        e.target.parentElement.className === "addresses__country-filter-item";
+
+    if (isItemSelected || isSubItemSelected) {
         const { titleUa, titleEng, titleDe } = getSelectedFilterItem({
             event: e,
-            isCountryItemSelected,
-            isCountrySubItemSelected,
+            isItemSelected,
+            isSubItemSelected,
         });
 
         filterByCountry.children[0].textContent = titleUa;
@@ -321,9 +475,55 @@ const setFilterByContry = (e) => {
     }
 };
 
-const setFilterByRegion = () => {
+const setFilterByRegion = (e) => {
     setIsFilterActice();
-    console.log("Set filter by Region");
+    const { isRegionList } = isFilterListExist({
+        region: true,
+    });
+
+    if (!isRegionList) {
+        const regionFilterNode = createFilterListNode({
+            parentClass: "addresses__region-filter-list",
+            childClass: "addresses__region-filter-item",
+            data: addresses,
+            variant: "region",
+        });
+        regionFilterNode && filterByRegion.append(regionFilterNode);
+        const regionsList = document.querySelectorAll(
+            ".addresses__region-filter-list"
+        );
+        regionsList[0]?.classList.add("active");
+    } else if (isRegionList && !isFilterActive) {
+        const regionsList = document.querySelectorAll(
+            ".addresses__region-filter-list"
+        );
+        regionsList[0].classList.contains("active") &&
+            regionsList[0].classList.remove("active");
+    } else if (isRegionList && isFilterActive) {
+        const regionsList = document.querySelectorAll(
+            ".addresses__region-filter-list"
+        );
+        !regionsList[0].classList.contains("active") &&
+            regionsList[0].classList.add("active");
+    }
+
+    const isItemSelected =
+        e.target.className === "addresses__region-filter-item";
+
+    const isSubItemSelected =
+        e.target.parentElement.className === "addresses__region-filter-item";
+
+    if (isItemSelected || isSubItemSelected) {
+        const { titleUa, titleEng, titleDe } = getSelectedFilterItem({
+            event: e,
+            isItemSelected,
+            isSubItemSelected,
+        });
+
+        filterByRegion.children[0].textContent = titleUa;
+        filterByRegion.children[1].textContent = titleEng;
+        filterByRegion.children[2].textContent = titleDe;
+    }
 };
 
 const setFilterByCity = () => {
@@ -332,5 +532,5 @@ const setFilterByCity = () => {
 };
 
 filterByCountry.addEventListener("click", (e) => setFilterByContry(e));
-filterByRegion.addEventListener("click", (e) => setFilterByRegion());
+filterByRegion.addEventListener("click", (e) => setFilterByRegion(e));
 filterByCity.addEventListener("click", (e) => setFilterByCity());
