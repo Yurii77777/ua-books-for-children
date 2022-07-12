@@ -99,7 +99,20 @@ const addresses = {
                     regionTitleUa: "Київський",
                     regionTitleEng: "Kyivskyi",
                     regionTitleDe: "Kyivskyi",
-                    regionCities: [],
+                    regionCities: [
+                        {
+                            cityTitleUa: "Київ",
+                            cityTitleEng: "Kyiv",
+                            cityTitleDe: "Kiew",
+                            cityAddresses: [],
+                        },
+                        {
+                            cityTitleUa: "Бровари",
+                            cityTitleEng: "Breweries",
+                            cityTitleDe: "Brauereien",
+                            cityAddresses: [],
+                        },
+                    ],
                 },
                 {
                     regionTitleUa: "Харківський",
@@ -264,6 +277,80 @@ const getRegions = (data) => {
     return result;
 };
 
+const getCities = (data) => {
+    let result = [];
+
+    const isRegionSelected =
+        filterByRegion.children[0].textContent !== "Регіон";
+
+    if (!isRegionSelected) {
+        const selectedLanguage = getActiveLanguage($languages);
+
+        if (selectedLanguage === "ua") {
+            filterByCity.children[0].textContent = "Виберіть регіон!";
+            filterByCity.children[0].style.color = "red";
+
+            setTimeout(() => {
+                filterByCity.children[0].textContent = "Місто";
+                filterByCity.children[0].style.color = "#000";
+            }, 2000);
+        } else if (selectedLanguage === "eng") {
+            filterByCity.children[1].textContent = "Choose a region!";
+            filterByCity.children[1].style.color = "red";
+
+            setTimeout(() => {
+                filterByCity.children[1].textContent = "City";
+                filterByCity.children[1].style.color = "#000";
+            }, 2000);
+        } else if (selectedLanguage === "de") {
+            filterByCity.children[2].textContent =
+                "Wählen Sie eine Region aus!";
+            filterByCity.children[2].style.color = "red";
+
+            setTimeout(() => {
+                filterByCity.children[2].textContent = "Stadt";
+                filterByCity.children[2].style.color = "#000";
+            }, 2000);
+        }
+    } else if (isRegionSelected) {
+        const selectedCountryTitleUa = filterByCountry.children[0].textContent;
+        const selectedRegionTitleUa = filterByRegion.children[0].textContent;
+        const countries = data?.countries;
+
+        for (let i = 0; i < countries.length; i++) {
+            const countryItem = countries[i];
+            const { countryTitleUa } = countryItem;
+
+            if (countryTitleUa === selectedCountryTitleUa) {
+                const countryRegions = countryItem?.countryRegions;
+
+                for (let k = 0; k < countryRegions.length; k++) {
+                    const regionItem = countryRegions[k];
+                    const { regionTitleUa } = regionItem;
+
+                    if (regionTitleUa === selectedRegionTitleUa) {
+                        const regionCities = regionItem?.regionCities;
+
+                        for (let j = 0; j < regionCities.length; j++) {
+                            let dataObj = {};
+                            const { cityTitleUa, cityTitleEng, cityTitleDe } =
+                                regionCities[j];
+
+                            dataObj["cityTitleUa"] = cityTitleUa;
+                            dataObj["cityTitleEng"] = cityTitleEng;
+                            dataObj["cityTitleDe"] = cityTitleDe;
+
+                            result.push(dataObj);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return result;
+};
+
 const createFilterListNode = (options) => {
     const { parentClass, childClass, data, variant } = options;
 
@@ -353,6 +440,28 @@ const createFilterListNode = (options) => {
 
             nodeString = list;
         }
+    } else if (variant === "city") {
+        const citiesList = getCities(data);
+        const isCities = !!citiesList.length;
+
+        if (isCities) {
+            for (let i = 0; i < citiesList.length; i++) {
+                const { cityTitleUa, cityTitleEng, cityTitleDe } =
+                    citiesList[i];
+
+                const item = createItemOfList({
+                    childClass,
+                    selectedLanguage,
+                    itemTitleUa: cityTitleUa,
+                    itemTitleEng: cityTitleEng,
+                    itemTitleDe: cityTitleDe,
+                });
+
+                list.append(item);
+            }
+
+            nodeString = list;
+        }
     }
 
     return nodeString;
@@ -383,6 +492,14 @@ const isFilterListExist = (options) => {
             child.classList.contains("addresses__region-filter-list") &&
                 (result.isRegionList = true);
         }
+    } else if (city) {
+        const cityChildren = Array.from(filterByCity.children);
+
+        for (let i = 0; i < cityChildren.length; i++) {
+            const child = cityChildren[i];
+            child.classList.contains("addresses__city-filter-list") &&
+                (result.isCityList = true);
+        }
     }
 
     return result;
@@ -411,7 +528,7 @@ const getSelectedFilterItem = (options) => {
 };
 
 // Встановити фільтр за країнами
-const setFilterByContry = (e) => {
+const setFilterByCountry = (e) => {
     setIsFilterActice();
     const { isCountryList } = isFilterListExist({
         country: true,
@@ -477,9 +594,23 @@ const setFilterByContry = (e) => {
 
 const setFilterByRegion = (e) => {
     setIsFilterActice();
+
     const { isRegionList } = isFilterListExist({
         region: true,
     });
+    const { isCityList } = isFilterListExist({
+        city: true,
+    });
+
+    if (isCityList) {
+        const citiesList = document.querySelectorAll(
+            ".addresses__city-filter-list"
+        );
+        citiesList[0].remove();
+        filterByCity.children[0].textContent = "Місто";
+        filterByCity.children[1].textContent = "City";
+        filterByCity.children[2].textContent = "Stadt";
+    }
 
     if (!isRegionList) {
         const regionFilterNode = createFilterListNode({
@@ -526,11 +657,56 @@ const setFilterByRegion = (e) => {
     }
 };
 
-const setFilterByCity = () => {
+const setFilterByCity = (e) => {
     setIsFilterActice();
-    console.log("Set filter by City");
+    const { isCityList } = isFilterListExist({
+        city: true,
+    });
+
+    if (!isCityList) {
+        const cityFilterNode = createFilterListNode({
+            parentClass: "addresses__city-filter-list",
+            childClass: "addresses__city-filter-item",
+            data: addresses,
+            variant: "city",
+        });
+        cityFilterNode && filterByCity.append(cityFilterNode);
+        const citiesList = document.querySelectorAll(
+            ".addresses__city-filter-list"
+        );
+        citiesList[0]?.classList.add("active");
+    } else if (isCityList && !isFilterActive) {
+        const citiesList = document.querySelectorAll(
+            ".addresses__city-filter-list"
+        );
+        citiesList[0].classList.contains("active") &&
+            citiesList[0].classList.remove("active");
+    } else if (isCityList && isFilterActive) {
+        const citiesList = document.querySelectorAll(
+            ".addresses__city-filter-list"
+        );
+        !citiesList[0].classList.contains("active") &&
+            citiesList[0].classList.add("active");
+    }
+
+    const isItemSelected = e.target.className === "addresses__city-filter-item";
+
+    const isSubItemSelected =
+        e.target.parentElement.className === "addresses__city-filter-item";
+
+    if (isItemSelected || isSubItemSelected) {
+        const { titleUa, titleEng, titleDe } = getSelectedFilterItem({
+            event: e,
+            isItemSelected,
+            isSubItemSelected,
+        });
+
+        filterByCity.children[0].textContent = titleUa;
+        filterByCity.children[1].textContent = titleEng;
+        filterByCity.children[2].textContent = titleDe;
+    }
 };
 
-filterByCountry.addEventListener("click", (e) => setFilterByContry(e));
+filterByCountry.addEventListener("click", (e) => setFilterByCountry(e));
 filterByRegion.addEventListener("click", (e) => setFilterByRegion(e));
-filterByCity.addEventListener("click", (e) => setFilterByCity());
+filterByCity.addEventListener("click", (e) => setFilterByCity(e));

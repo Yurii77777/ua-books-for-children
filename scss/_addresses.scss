@@ -44,18 +44,22 @@
     &__country-filter-item > span,
     &__country-filter-list,
     &__region-filter-item > span,
-    &__region-filter-list {
+    &__region-filter-list,
+    &__city-filter-item > span,
+    &__city-filter-list {
         display: none;
     }
 
     &__filter-item > span.active,
     &__country-filter-item > span.active,
-    &__region-filter-item > span.active {
+    &__region-filter-item > span.active,
+    &__city-filter-item > span.active {
         display: block;
     }
 
     &__country-filter-list.active,
-    &__region-filter-list.active {
+    &__region-filter-list.active,
+    &__city-filter-list.active {
         display: block;
         position: absolute;
         width: 90%;
@@ -68,7 +72,8 @@
     }
 
     &__country-filter-item,
-    &__region-filter-item {
+    &__region-filter-item,
+    &__city-filter-item {
         @include flex-col-cent-cent;
         height: 25px;
     }
@@ -78,7 +83,10 @@
     &__country-filter-item:active,
     &__region-filter-item:hover,
     &__region-filter-item:focus,
-    &__region-filter-item:active {
+    &__region-filter-item:active,
+    &__city-filter-item:hover,
+    &__city-filter-item:focus,
+    &__city-filter-item:active {
         background-color: $white-clr;
     }
 
