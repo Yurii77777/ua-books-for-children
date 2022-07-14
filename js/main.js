@@ -104,41 +104,41 @@ const addresses = {
                             cityTitleUa: "Київ",
                             cityTitleEng: "Kyiv",
                             cityTitleDe: "Kiew",
-                            cityAddresses: [],
-                        },
-                        {
-                            cityTitleUa: "Бровари",
-                            cityTitleEng: "Breweries",
-                            cityTitleDe: "Brauereien",
-                            cityAddresses: [],
+                            cityAddresses: [
+                                {
+                                    addressTitleUa:
+                                        "вул. Олекси Тихого (Виборзька), буд. 55/13",
+                                    addressTitleEng:
+                                        "St. Oleksy Tyhoho (Vyborzka), bldg. 55/13",
+                                    addressTitleDe:
+                                        "St. Oleksy Tyhoho (Vyborzka), Geb. 55/13",
+                                    mapSrc: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2540.619404032457!2d30.437986815731186!3d50.44818947947503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cc2368662709%3A0x609e55c29c3b4020!2z0YPQuy4g0JDQu9C10LrRgdC10Y8g0KLQuNGF0L7Qs9C-LCA1NSwg0JrQuNC10LIsIDAyMDAw!5e0!3m2!1sru!2sua!4v1656661871443!5m2!1sru!2sua",
+                                    typeUa: "прийом та видача",
+                                    typeEng: "reception and delivery",
+                                    typeDe: "Empfang und Lieferung",
+                                    contacts: [
+                                        {
+                                            email: "child.help.book@gmail.com",
+                                        },
+                                        {
+                                            phone: "+38 044 209 53 02",
+                                        },
+                                        {
+                                            phone: "+38 098 306 84 84",
+                                        },
+                                        {
+                                            phone: "+38 098 683 85 21",
+                                        },
+                                        {
+                                            phone: "+38 063 499 37 69",
+                                        },
+                                    ],
+                                },
+                            ],
                         },
                     ],
                 },
-                {
-                    regionTitleUa: "Харківський",
-                    regionTitleEng: "Kharkiv",
-                    regionTitleDe: "Charkiw",
-                    regionCities: [],
-                },
-                {
-                    regionTitleUa: "Львівський",
-                    regionTitleEng: "Lviv",
-                    regionTitleDe: "Lemberg",
-                    regionCities: [],
-                },
             ],
-        },
-        {
-            countryTitleUa: "Польша",
-            countryTitleEng: "Poland",
-            countryTitleDe: "Polen",
-            countryRegions: [],
-        },
-        {
-            countryTitleUa: "Німеччина",
-            countryTitleEng: "Germany",
-            countryTitleDe: "Deutschland",
-            countryRegions: [],
         },
     ],
 };
@@ -183,7 +183,7 @@ const getActiveLanguage = (languageNode) => {
 };
 
 // Отримати та підготувати список країн із БД
-const getCounries = (data) => {
+const getCountries = (data) => {
     let result = [];
 
     const countries = data?.countries;
@@ -351,6 +351,49 @@ const getCities = (data) => {
     return result;
 };
 
+const getAddresses = (data) => {
+    let result = [];
+
+    const selectedCountryTitleUa = filterByCountry.children[0].textContent;
+    const selectedRegionTitleUa = filterByRegion.children[0].textContent;
+    const selectedCityTitleUa = filterByCity.children[0].textContent;
+    const countries = data?.countries;
+
+    for (let i = 0; i < countries.length; i++) {
+        const countryItem = countries[i];
+        const { countryTitleUa } = countryItem;
+
+        if (countryTitleUa === selectedCountryTitleUa) {
+            const countryRegions = countryItem?.countryRegions;
+
+            for (let k = 0; k < countryRegions.length; k++) {
+                const regionItem = countryRegions[k];
+                const { regionTitleUa } = regionItem;
+
+                if (regionTitleUa === selectedRegionTitleUa) {
+                    const regionCities = regionItem?.regionCities;
+
+                    for (let j = 0; j < regionCities.length; j++) {
+                        const cityItem = regionCities[j];
+                        const { cityTitleUa } = cityItem;
+
+                        if (cityTitleUa === selectedCityTitleUa) {
+                            const cityAddresses = cityItem?.cityAddresses;
+
+                            for (let l = 0; l < cityAddresses.length; l++) {
+                                const address = cityAddresses[l];
+                                result.push(address);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return result;
+};
+
 const createFilterListNode = (options) => {
     const { parentClass, childClass, data, variant } = options;
 
@@ -395,7 +438,7 @@ const createFilterListNode = (options) => {
     };
 
     if (variant === "country") {
-        const countriesList = getCounries(data);
+        const countriesList = getCountries(data);
         const isCountries = !!countriesList.length;
         !isCountries && console.log("Список країн пустий ...");
 
@@ -467,6 +510,101 @@ const createFilterListNode = (options) => {
     return nodeString;
 };
 
+const createAddressListItem = (data) => {
+    let result = [];
+    const selectedLanguage = getActiveLanguage($languages);
+
+    for (let i = 0; i < data.length; i++) {
+        const {
+            addressTitleUa,
+            addressTitleEng,
+            addressTitleDe,
+            typeUa,
+            typeEng,
+            typeDe,
+            contacts,
+        } = data[i];
+
+        const item = document.createElement("li");
+        item.classList.add("addresses__location-item");
+
+        const spanUa = document.createElement("span");
+        spanUa.setAttribute("data-lang", "ua");
+        selectedLanguage === "ua" && spanUa.classList.add("active");
+        spanUa.append(addressTitleUa);
+        item.append(spanUa);
+
+        const spanEng = document.createElement("span");
+        spanEng.setAttribute("data-lang", "eng");
+        selectedLanguage === "eng" && spanEng.classList.add("active");
+        spanEng.append(addressTitleEng);
+        item.append(spanEng);
+
+        const spanDe = document.createElement("span");
+        spanDe.setAttribute("data-lang", "de");
+        selectedLanguage === "de" && spanDe.classList.add("active");
+        spanDe.append(addressTitleDe);
+        item.append(spanDe);
+
+        const addrParagraph = document.createElement("p");
+        addrParagraph.classList.add("addresses__hidden-content");
+
+        const spanDecorationUp = document.createElement("span");
+        spanDecorationUp.classList.add("addresses__decoration", "active");
+        addrParagraph.append(spanDecorationUp);
+
+        const spanTypeUa = document.createElement("span");
+        selectedLanguage === "ua"
+            ? spanTypeUa.classList.add("addresses__type", "active")
+            : spanTypeUa.classList.add("addresses__type");
+        spanTypeUa.setAttribute("data-lang", "ua");
+        spanTypeUa.append(typeUa);
+        addrParagraph.append(spanTypeUa);
+
+        const spanTypeEng = document.createElement("span");
+        selectedLanguage === "eng"
+            ? spanTypeEng.classList.add("addresses__type", "active")
+            : spanTypeEng.classList.add("addresses__type");
+        spanTypeEng.setAttribute("data-lang", "eng");
+        spanTypeEng.append(typeEng);
+        addrParagraph.append(spanTypeEng);
+
+        const spanTypeDe = document.createElement("span");
+        selectedLanguage === "de"
+            ? spanTypeDe.classList.add("addresses__type", "active")
+            : spanTypeDe.classList.add("addresses__type");
+        spanTypeDe.setAttribute("data-lang", "de");
+        spanTypeDe.append(typeDe);
+        addrParagraph.append(spanTypeDe);
+
+        const spanDecorationDown = document.createElement("span");
+        spanDecorationDown.classList.add("addresses__decoration", "active");
+        addrParagraph.append(spanDecorationDown);
+
+        for (let i = 0; i < contacts.length; i++) {
+            const contactItem = contacts[i];
+            const { email, phone } = contactItem;
+
+            const spanContact = document.createElement("span");
+
+            if (email) {
+                spanContact.classList.add("addresses__email-contact", "active");
+                spanContact.append(email);
+                addrParagraph.append(spanContact);
+            } else if (phone) {
+                spanContact.classList.add("addresses__phone-contact", "active");
+                spanContact.append(phone);
+                addrParagraph.append(spanContact);
+            }
+        }
+
+        item.append(addrParagraph);
+        result.push(item);
+    }
+
+    return result;
+};
+
 // Чи вже доданий список до фільтру
 const isFilterListExist = (options) => {
     const { country, region, city } = options;
@@ -529,6 +667,8 @@ const getSelectedFilterItem = (options) => {
 
 // Встановити фільтр за країнами
 const setFilterByCountry = (e) => {
+    e.stopPropagation();
+
     setIsFilterActice();
     const { isCountryList } = isFilterListExist({
         country: true,
@@ -593,6 +733,8 @@ const setFilterByCountry = (e) => {
 };
 
 const setFilterByRegion = (e) => {
+    e.stopPropagation();
+
     setIsFilterActice();
 
     const { isRegionList } = isFilterListExist({
@@ -657,7 +799,11 @@ const setFilterByRegion = (e) => {
     }
 };
 
+const addressesList = document.querySelectorAll(".addresses__location-list");
+
 const setFilterByCity = (e) => {
+    e.stopPropagation();
+
     setIsFilterActice();
     const { isCityList } = isFilterListExist({
         city: true,
@@ -704,9 +850,64 @@ const setFilterByCity = (e) => {
         filterByCity.children[0].textContent = titleUa;
         filterByCity.children[1].textContent = titleEng;
         filterByCity.children[2].textContent = titleDe;
+
+        const adrressesChildren = Array.from(addressesList[0].children);
+
+        for (let i = 0; i < adrressesChildren.length; i++) {
+            addressesList[0].children[i].remove();
+        }
+
+        const cityAddresses = getAddresses(addresses);
+        const addressesListItems = createAddressListItem(cityAddresses);
+
+        for (let i = 0; i < addressesListItems.length; i++) {
+            const addressItem = addressesListItems[i];
+            addressesList[0].append(addressItem);
+        }
     }
+};
+
+const setAddress = (e) => {
+    e.stopPropagation();
+
+    const $addressDetails = document.querySelectorAll(
+        ".addresses__hidden-content"
+    );
+    !$addressDetails[0].classList.contains("active")
+        ? $addressDetails[0].classList.add("active")
+        : $addressDetails[0].classList.remove("active");
+
+    const marSrc = getMapSrc(addresses);
+    const $mapContainer = document.querySelectorAll(
+        ".addresses__map-container"
+    );
+    $mapContainer[0].children[0].src !== marSrc &&
+        ($mapContainer[0].children[0].src = marSrc);
+};
+
+const getMapSrc = (data) => {
+    let result = null;
+
+    const cityAddresses = getAddresses(data);
+    const addressList = Array.from(addressesList[0].children);
+
+    for (let i = 0; i < addressList.length; i++) {
+        const addressItem = addressList[i];
+        const addressTitleUa = addressItem.children[0].textContent;
+
+        for (let i = 0; i < cityAddresses.length; i++) {
+            const adressUa = cityAddresses[i].addressTitleUa;
+
+            if (adressUa === addressTitleUa) {
+                result = cityAddresses[i]?.mapSrc;
+            }
+        }
+    }
+
+    return result;
 };
 
 filterByCountry.addEventListener("click", (e) => setFilterByCountry(e));
 filterByRegion.addEventListener("click", (e) => setFilterByRegion(e));
 filterByCity.addEventListener("click", (e) => setFilterByCity(e));
+addressesList[0].addEventListener("click", (e) => setAddress(e));
