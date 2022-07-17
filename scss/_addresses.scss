@@ -49,7 +49,8 @@
     &__city-filter-list,
     &__location-item > span,
     &__hidden-content,
-    &__hidden-content.active > span {
+    &__hidden-content.active > span,
+    &__arrow-container > span {
         display: none;
     }
 
@@ -59,7 +60,8 @@
     &__city-filter-item > span.active,
     &__location-item > span.active,
     &__hidden-content.active,
-    &__hidden-content.active > span.active {
+    &__hidden-content.active > span.active,
+    &__arrow-container > span.active {
         display: block;
     }
 
@@ -109,12 +111,11 @@
         cursor: pointer;
     }
 
-    &__filter-item::after {
-        content: "\142F";
-        color: $dark-gray-clr;
+    &__arrow-container > span.active {
         position: absolute;
-        right: 15px;
+        color: $dark-gray-clr;
         top: 25%;
+        right: 15px;
     }
 
     &__location-item {

@@ -312,6 +312,11 @@ const getCities = (data) => {
                 filterByCity.children[2].style.color = "#000";
             }, 2000);
         }
+
+        ruleArrows({
+            arrowDown: ".addresses__arrow-down-city",
+            arrowUp: ".addresses__arrow-up-city",
+        });
     } else if (isRegionSelected) {
         const selectedCountryTitleUa = filterByCountry.children[0].textContent;
         const selectedRegionTitleUa = filterByRegion.children[0].textContent;
@@ -665,6 +670,20 @@ const getSelectedFilterItem = (options) => {
     return result;
 };
 
+const ruleArrows = (options) => {
+    const { arrowDown, arrowUp } = options;
+    const $arrowDown = document.querySelectorAll(arrowDown);
+    const $arrowUp = document.querySelectorAll(arrowUp);
+
+    $arrowDown[0].classList.contains("active")
+        ? $arrowDown[0].classList.remove("active")
+        : $arrowDown[0].classList.add("active");
+
+    $arrowUp[0].classList.contains("active")
+        ? $arrowUp[0].classList.remove("active")
+        : $arrowUp[0].classList.add("active");
+};
+
 // Встановити фільтр за країнами
 const setFilterByCountry = (e) => {
     e.stopPropagation();
@@ -730,6 +749,11 @@ const setFilterByCountry = (e) => {
         filterByCountry.children[1].textContent = titleEng;
         filterByCountry.children[2].textContent = titleDe;
     }
+
+    ruleArrows({
+        arrowDown: ".addresses__arrow-down",
+        arrowUp: ".addresses__arrow-up",
+    });
 };
 
 const setFilterByRegion = (e) => {
@@ -797,6 +821,11 @@ const setFilterByRegion = (e) => {
         filterByRegion.children[1].textContent = titleEng;
         filterByRegion.children[2].textContent = titleDe;
     }
+
+    ruleArrows({
+        arrowDown: ".addresses__arrow-down-region",
+        arrowUp: ".addresses__arrow-up-region",
+    });
 };
 
 const addressesList = document.querySelectorAll(".addresses__location-list");
@@ -865,6 +894,11 @@ const setFilterByCity = (e) => {
             addressesList[0].append(addressItem);
         }
     }
+
+    ruleArrows({
+        arrowDown: ".addresses__arrow-down-city",
+        arrowUp: ".addresses__arrow-up-city",
+    });
 };
 
 const setAddress = (e) => {
@@ -906,6 +940,125 @@ const getMapSrc = (data) => {
 
     return result;
 };
+
+const setDefaultAddress = (options) => {
+    const { countryTitleUa, regionTitleUa, cityTitleUa, addressTitleUa } =
+        options;
+
+    const countries = addresses?.countries;
+
+    for (let i = 0; i < countries.length; i++) {
+        const countryItem = countries[i];
+        const {
+            countryTitleUa: countryNameUa,
+            countryTitleEng,
+            countryTitleDe,
+        } = countryItem;
+
+        if (countryNameUa === countryTitleUa) {
+            filterByCountry.children[0].textContent = countryNameUa;
+            filterByCountry.children[1].textContent = countryTitleEng;
+            filterByCountry.children[2].textContent = countryTitleDe;
+        }
+    }
+
+    for (let i = 0; i < countries.length; i++) {
+        const countryItem = countries[i];
+        const { countryTitleUa: countryNameUa, countryRegions } = countryItem;
+
+        if (countryNameUa === countryTitleUa) {
+            for (let j = 0; j < countryRegions.length; j++) {
+                const regionItem = countryRegions[j];
+                const {
+                    regionTitleUa: regionNameUa,
+                    regionTitleEng,
+                    regionTitleDe,
+                } = regionItem;
+
+                if (regionNameUa === regionTitleUa) {
+                    filterByRegion.children[0].textContent = regionNameUa;
+                    filterByRegion.children[1].textContent = regionTitleEng;
+                    filterByRegion.children[2].textContent = regionTitleDe;
+                }
+            }
+        }
+    }
+
+    let cityAddresses = [];
+
+    for (let i = 0; i < countries.length; i++) {
+        const countryItem = countries[i];
+        const { countryTitleUa: countryNameUa, countryRegions } = countryItem;
+
+        if (countryNameUa === countryTitleUa) {
+            for (let j = 0; j < countryRegions.length; j++) {
+                const regionItem = countryRegions[j];
+                const { regionTitleUa: regionNameUa, regionCities } =
+                    regionItem;
+
+                if (regionNameUa === regionTitleUa) {
+                    for (let k = 0; k < regionCities.length; k++) {
+                        const cityItem = regionCities[k];
+                        const {
+                            cityTitleUa: cityNameUa,
+                            cityTitleEng,
+                            cityTitleDe,
+                        } = cityItem;
+
+                        if (cityNameUa === cityTitleUa) {
+                            filterByCity.children[0].textContent = cityNameUa;
+                            filterByCity.children[1].textContent = cityTitleEng;
+                            filterByCity.children[2].textContent = cityTitleDe;
+
+                            cityAddresses = getAddresses(addresses);
+                            const addressesListItems =
+                                createAddressListItem(cityAddresses);
+
+                            for (
+                                let l = 0;
+                                l < addressesListItems.length;
+                                l++
+                            ) {
+                                const addressItem = addressesListItems[l];
+                                addressesList[0].append(addressItem);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    const $address = document.querySelectorAll(".addresses__location-list");
+    const address = Array.from($address[0].children);
+
+    for (let i = 0; i < address.length; i++) {
+        const addressItem = address[i];
+        const addressNameUa = addressItem.children[0].textContent;
+        const addressDetailContacts = addressItem.children[3];
+
+        addressNameUa === addressTitleUa &&
+            addressDetailContacts.classList.add("active");
+    }
+
+    for (let i = 0; i < cityAddresses.length; i++) {
+        const addressItem = cityAddresses[i];
+        const { mapSrc } = addressItem;
+
+        const $mapContainer = document.querySelectorAll(
+            ".addresses__map-container"
+        );
+        $mapContainer[0].children[0].src !== mapSrc &&
+            ($mapContainer[0].children[0].src = mapSrc);
+    }
+};
+
+setDefaultAddress({
+    countryTitleUa: "Україна",
+    regionTitleUa: "Київський",
+    cityTitleUa: "Київ",
+    addressTitleUa: "вул. Олекси Тихого (Виборзька), буд. 55/13",
+});
 
 filterByCountry.addEventListener("click", (e) => setFilterByCountry(e));
 filterByRegion.addEventListener("click", (e) => setFilterByRegion(e));
