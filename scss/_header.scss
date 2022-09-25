@@ -1,6 +1,5 @@
 /**
- * Made by Yurets in UA!
- * Copyright (c) GPL License <2021> <Yurii Andriiko>
+ * Copyright (c) GPL License <2021 - 2022> <Yurii Andriiko>
  * http://yurets.info/
  * Telegram @Yurets7777 E-mail: yuretshome@gmail.com
  * "Роби добре, та тільки добре! А можеш? - Роби краще!"
@@ -11,21 +10,13 @@
     height: 60px;
     background-color: $black-clr;
 
-    &__logo {
-        width: 60%;
+    &__logo-link {
         margin: 0 $s-margin 0 $xs-margin;
     }
 
-    &__logo-link > span,
-    &__good-evening-link > span,
-    &__good-evening-link,
-    &__emblem {
+    &__emblem,
+    &__good-evening-img {
         display: none;
-    }
-
-    &__logo-link > span.active,
-    &__good-evening-link > span.active {
-        display: inline;
     }
 
     &__lang-container,
@@ -42,6 +33,7 @@
     &__language {
         margin: 0 $xxs-margin;
         cursor: pointer;
+        color: inherit;
         transition: all 0.2s ease-in-out;
     }
 
@@ -65,7 +57,7 @@
         }
 
         &__emblem,
-        &__good-evening-link {
+        &__good-evening-img {
             display: block;
         }
 
@@ -74,12 +66,9 @@
             margin-right: auto;
         }
 
-        &__good-evening-link {
-            margin-right: $s-margin;
-        }
-
         &__good-evening-img {
             max-width: 200px;
+            margin-right: $s-margin;
         }
     }
 }
