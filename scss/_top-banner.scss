@@ -10,14 +10,14 @@
     @include flex-column-betw-cent;
     width: 100vw;
     margin-left: calc(50% - 50vw);
-    background-image: url("../images/top-banner-bg-img.webp");
+    background-image: url("../images/top-banner-bg-img_mobile.webp");
     background-size: cover;
     background-repeat: no-repeat;
 
     &__contacts-container,
     &__help-info {
         width: 100%;
-        padding: 0 15px;
+        padding: calc(0px + 30 * (100vw / 1920)) $s-padding 0;
     }
 
     &__contacts-container {
@@ -25,32 +25,18 @@
         height: 55%;
     }
 
+    &__subtitle-wrapper {
+        @include flex-row-cent;
+        max-width: 80%;
+        margin: $s-margin 0;
+    }
+
     &__subtitle {
         @include flex-row-betw-cent;
-        font-size: 18px;
-        line-height: 0.85;
+        font-size: calc(1.8rem + 10 * (100vw / 1920));
+        line-height: 1.2;
         font-weight: 600;
         color: $blue-clr;
-        max-width: 280px;
-        margin: 18px 0 18px 0;
-    }
-
-    &__subtitle > span,
-    &__title > span,
-    &__contacts-title > span,
-    &__help-message-paragraph > span,
-    &__email-link > span,
-    &__help-button > span {
-        display: none;
-    }
-
-    &__subtitle > span.active,
-    &__title > span.active,
-    &__contacts-title > span.active,
-    &__help-message-paragraph > span.active,
-    &__email-link > span.active,
-    &__help-button > span.active {
-        display: inline;
     }
 
     &__subtitle-logo {
@@ -59,27 +45,26 @@
     }
 
     &__title {
-        font-size: 3.2rem;
+        font-size: calc(3.2rem + 40 * (100vw / 1920));
         line-height: 1.2;
         font-weight: 600;
         text-transform: uppercase;
         color: $white-clr;
-        max-width: 70%;
-        margin-bottom: 18px;
+        max-width: 80%;
+        margin: 5vw 0;
     }
 
     &__contacts-title {
         font-size: 2.4rem;
-        line-height: 1.3;
         text-transform: uppercase;
         font-weight: 600;
         color: $active-lang-clr;
-        margin-bottom: 10px;
+        margin: 0 5vw 2vw 0;
     }
 
     &__contacts-phone {
         display: block;
-        font-size: 20px;
+        font-size: 2rem;
         color: $white-clr;
         cursor: pointer;
         position: relative;
@@ -118,7 +103,8 @@
         @include flex-column-betw-cent;
         position: relative;
         height: 45%;
-        padding: 20px 15px;
+        gap: 10px 20px;
+        padding: $sm-padding $s-padding;
     }
 
     &__help-info::before {
@@ -133,31 +119,25 @@
 
     &__help-block {
         @include flex-column-betw-cent;
-        width: 300px;
-        height: 180px;
-        padding: 14px 23px;
+        width: clamp(300px, 340px, 340px);
+        height: clamp(180px, 200px, 200px);
+        padding: $s-padding $m-padding;
         background-color: $white-clr;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.11);
-        margin-bottom: 10px;
         position: relative;
-    }
-
-    &__help-block:last-child {
-        margin-bottom: 0;
     }
 
     &__help-message {
         font-size: 1.8rem;
         font-weight: 600;
-        line-height: 1.2;
-        color: #1d1d1b;
-        margin-bottom: 18px;
+        color: $back-secondary-clr;
+        margin-bottom: $s-margin;
     }
 
     &__help-message-paragraph:first-child {
         font-weight: 800;
         text-transform: uppercase;
-        margin-bottom: 10px;
+        margin-bottom: $xs-margin;
     }
 
     &__help-contacts {
@@ -165,7 +145,7 @@
     }
 
     &__help-button {
-        margin-right: 10px;
+        margin-right: $xs-margin;
     }
 
     &__help-button:last-child {
@@ -175,62 +155,22 @@
 
 @media (min-width: 768px) {
     .top-banner {
+        background-image: url("../images/top-banner-bg-img.webp");
         min-height: 700px;
         height: auto;
 
-        &__contacts-container {
-            padding-top: 30px;
-        }
-
-        &__subtitle {
-            font-size: 3rem;
-            max-width: 100%;
-            justify-content: flex-start;
-        }
-
-        &__title {
-            font-size: 3.8rem;
-            margin: 50px 0;
-        }
-
         &__contacts-wrapper {
-            @include flex-row-betw-cent;
-            justify-content: flex-start;
-        }
-
-        &__contacts-title {
-            font-size: 2.4rem;
-            margin-right: 25px;
-        }
-
-        &__help-block {
-            width: 340px;
-            height: 200px;
+            @include flex-row-start-cent;
         }
     }
 }
 
 @media (min-width: 992px) {
     .top-banner {
-        background-position: center;
-
-        &__title {
-            font-size: 6rem;
-            max-width: 80%;
-            margin: 15px 0;
-        }
 
         &__help-info {
             flex-direction: row;
             justify-content: center;
-        }
-
-        &__help-block {
-            margin: 0 40px 0 0;
-        }
-
-        &__help-block:last-child {
-            margin-right: 0;
         }
     }
 }

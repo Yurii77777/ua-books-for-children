@@ -13,10 +13,23 @@
     align-items: center;
 }
 
+@mixin flex-row-start-cent {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 @mixin flex-row-cent-cent {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-row-cent {
+    display: flex;
+    flex-direction: row;
     align-items: center;
 }
 
