@@ -1,0 +1,29 @@
+/**
+ * Made by Yurets in UA!
+ * Copyright (c) GPL License <2021 - 2022> <Yurii Andriiko>
+ * http://yurets.info/
+ * Telegram @Yurets7777 E-mail: yuretshome@gmail.com
+ * "Роби добре, та тільки добре! А можеш? - Роби краще!"
+ */
+.social-container {
+    @include flex-column-betw-cent;
+    row-gap: 10px;
+    background-color: $black-clr;
+    border-radius: 8px 0 0 8px;
+    padding: $xs-padding $xxs-padding;
+    position: fixed;
+    right: 0;
+    top: 305px;
+    z-index: 1;
+
+    &__icon-img {
+        width: 20px;
+        transition: ease-in all 500ms;
+    }
+
+    &__icon-img:hover,
+    &__icon-img:focus,
+    &__icon-img:active {
+        opacity: 0.7;
+    }
+}
