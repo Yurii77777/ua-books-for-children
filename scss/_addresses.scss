@@ -5,7 +5,6 @@
  * Telegram @Yurets7777 E-mail: yuretshome@gmail.com
  * "Роби добре, та тільки добре! А можеш? - Роби краще!"
  */
-
 .addresses {
     width: 100vw;
     margin-left: calc(50% - 50vw);
@@ -13,7 +12,7 @@
 
     &__content-container {
         max-width: 1100px;
-        padding: 20px;
+        padding: $sm-padding;
         margin: 0 auto;
         background-color: $white-clr;
     }
@@ -25,103 +24,33 @@
         text-align: center;
     }
 
-    &__title > span {
-        display: none;
-    }
-
-    &__title > span.active {
-        display: block;
-    }
-
     &__filter-list {
         @include flex-column-betw-cent;
-        width: 250px;
-        margin: 20px auto;
+        min-width: 250px;
+        max-width: 90%;
+        margin: $sm-margin auto;
     }
 
-    &__filter-item > span,
-    &__country-filter-item > span,
-    &__country-filter-list,
-    &__region-filter-item > span,
-    &__region-filter-list,
-    &__city-filter-item > span,
-    &__city-filter-list,
-    &__location-item > span,
-    &__hidden-content,
-    &__hidden-content.active > span,
-    &__arrow-container > span {
-        display: none;
-    }
-
-    &__filter-item > span.active,
-    &__country-filter-item > span.active,
-    &__region-filter-item > span.active,
-    &__city-filter-item > span.active,
-    &__location-item > span.active,
-    &__hidden-content.active,
-    &__hidden-content.active > span.active,
-    &__arrow-container > span.active {
-        display: block;
-    }
-
-    &__country-filter-list.active,
-    &__region-filter-list.active,
-    &__city-filter-list.active {
-        display: block;
-        position: absolute;
-        width: 90%;
-        max-height: 250px;
-        overflow-y: auto;
-        top: 100%;
-        border-radius: 5px;
-        background-color: $azure-clr;
-        z-index: 1;
-    }
-
-    &__country-filter-item,
-    &__region-filter-item,
-    &__city-filter-item {
-        @include flex-col-cent-cent;
-        height: 25px;
-    }
-
-    &__country-filter-item:hover,
-    &__country-filter-item:focus,
-    &__country-filter-item:active,
-    &__region-filter-item:hover,
-    &__region-filter-item:focus,
-    &__region-filter-item:active,
-    &__city-filter-item:hover,
-    &__city-filter-item:focus,
-    &__city-filter-item:active {
-        background-color: $white-clr;
-    }
-
-    &__filter-item,
-    &__location-item {
-        font-size: 1.3rem;
+    &__filter-item {
+        font-size: 1.2rem;
         text-align: center;
+        word-break: break-word;
         border: 1px solid $gray-clr;
         border-radius: 5px;
         width: 100%;
-        padding: 5px 10px;
+        padding: $xs-padding $s-padding;
         margin-bottom: 5px;
         position: relative;
         cursor: pointer;
     }
 
-    &__arrow-container > span.active {
-        position: absolute;
-        color: $dark-gray-clr;
-        top: 25%;
-        right: 15px;
+    &__filter-item > &__decoration,
+    &__filter-item > &__contact-span,
+    &__filter-item > &__span-type {
+        display: none;
     }
 
-    &__location-item {
-        word-break: break-word;
-    }
-
-    &__decoration {
+    &__filter-item.active > &__decoration {
         display: block;
         width: 100%;
         height: 1px;
@@ -136,30 +65,18 @@
         order: 1;
     }
 
+    &__filter-item.active > &__contact-span,
+    &__filter-item.active > &__span-type {
+        display: block;
+    }
+
     &__map-container {
         order: 2;
     }
 
     &__map-container {
         width: 100%;
-        height: 250px;
-    }
-}
-
-@media (min-width: 576px) {
-    .addresses {
-        &__filter-list {
-            width: 350px;
-        }
-
-        &__filter-item {
-            font-size: 1.4rem;
-            padding: 10px 15px;
-        }
-
-        &__map-container {
-            height: 350px;
-        }
+        height: 350px;
     }
 }
 
@@ -167,16 +84,7 @@
     .addresses {
         &__filter-list {
             flex-direction: row;
-            width: 90%;
-        }
-
-        &__filter-item {
-            margin-bottom: 0;
-            margin-right: 10px;
-        }
-
-        &__filter-item:last-child {
-            margin-right: 0;
+            column-gap: 15px;
         }
 
         &__map-wrapper {

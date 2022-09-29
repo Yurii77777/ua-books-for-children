@@ -283,67 +283,22 @@
                 <section class="addresses">
                     <div class="addresses__content-container">
                         <h3 class="addresses__title">
-                            <span data-lang="ua" class="active"
-                                >Адреси прийому та видачі гуманітарної
-                                допомоги</span
-                            >
-                            <span data-lang="eng"
-                                >Addresses of reception and issuance of
-                                humanitarian aid</span
-                            >
-                            <span data-lang="de"
-                                >Adressen des Empfangs und der Ausgabe von
-                                humanitärer Hilfe</span
-                            >
+                            Адреси прийому та видачі гуманітарної допомоги
                         </h3>
 
-                        <ul class="addresses__filter-list">
-                            <li class="addresses__filter-item">
-                                <span data-lang="ua" class="active"
-                                    >Країна</span
-                                >
-                                <span data-lang="eng">Country</span>
-                                <span data-lang="de">Land</span>
-                                <p class="addresses__arrow-container">
-                                    <span class="addresses__arrow-down active"
-                                        >&#5167;</span
-                                    >
-                                    <span class="addresses__arrow-up"
-                                        >&#5169;</span
-                                    >
-                                </p>
-                            </li>
-                            <li class="addresses__filter-item">
-                                <span data-lang="ua" class="active"
-                                    >Регіон</span
-                                >
-                                <span data-lang="eng">Region</span>
-                                <span data-lang="de">Region</span>
-                                <p class="addresses__arrow-container">
-                                    <span
-                                        class="addresses__arrow-down-region active"
-                                        >&#5167;</span
-                                    >
-                                    <span class="addresses__arrow-up-region"
-                                        >&#5169;</span
-                                    >
-                                </p>
-                            </li>
-                            <li class="addresses__filter-item">
-                                <span data-lang="ua" class="active">Місто</span>
-                                <span data-lang="eng">City</span>
-                                <span data-lang="de">Stadt</span>
-                                <p class="addresses__arrow-container">
-                                    <span
-                                        class="addresses__arrow-down-city active"
-                                        >&#5167;</span
-                                    >
-                                    <span class="addresses__arrow-up-city"
-                                        >&#5169;</span
-                                    >
-                                </p>
-                            </li>
-                        </ul>
+                        <div class="addresses__filter-list">
+                            <select class="addresses__filter-item country">
+                                <option value="0" selected>Україна</option>
+                            </select>
+
+                            <select class="addresses__filter-item region">
+                                <option value="0" selected>Київський</option>
+                            </select>
+
+                            <select class="addresses__filter-item city">
+                                <option value="0" selected>Київ</option>
+                            </select>
+                        </div>
 
                         <div class="addresses__map-wrapper">
                             <div class="addresses__map-container">
