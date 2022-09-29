@@ -15,7 +15,7 @@
         @include flex-column-betw-cent;
         width: 90%;
         max-width: 1100px;
-        padding: 20px 0;
+        padding: $sm-padding 0;
         margin: 0 auto;
     }
 
@@ -24,7 +24,7 @@
         font-size: 1.5rem;
         font-weight: 600;
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: $sm-margin;
     }
 
     &__phones-l,
@@ -68,20 +68,6 @@
         width: 20px;
     }
 
-    &__logo-link > span,
-    &__emblem > span,
-    &__paragraph > span,
-    &__copyright > span {
-        display: none;
-    }
-
-    &__logo-link > span.active,
-    &__emblem > span.active,
-    &__paragraph > span.active,
-    &__copyright > span.active {
-        display: block;
-    }
-
     &__email {
         @include flex-column-betw-cent;
         font-size: 1.5rem;
@@ -110,6 +96,7 @@
 
     &__copyright {
         @include flex-row-cent-cent;
+        column-gap: 15px;
         font-size: 1.2rem;
         padding: 15px 0;
         color: $dark-gray-clr;
