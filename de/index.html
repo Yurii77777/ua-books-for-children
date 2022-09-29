@@ -14,6 +14,10 @@
         </title>
         <link rel="stylesheet" href="../styles/index.min.css" />
         <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+        />
+        <link
             rel="icon"
             type="image/x-icon"
             href="../images/icons/favicon.ico"
@@ -652,6 +656,46 @@
                         </p>
                     </div>
                 </section>
+
+                <section class="ivents">
+                    <div class="ivents__content-container">
+                        <h6 class="ivents__title">
+                            Aktivitäten unserer Organisation
+                        </h6>
+
+                        <div class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img
+                                        src="../images/slides/slide-1.webp"
+                                        alt="Svichado library"
+                                        width="900"
+                                        height="450"
+                                    />
+                                </div>
+                                <div class="swiper-slide">
+                                    <img
+                                        src="../images/slides/slide-2.webp"
+                                        alt="Svichado library"
+                                        width="900"
+                                        height="450"
+                                    />
+                                </div>
+                                <div class="swiper-slide">
+                                    <img
+                                        src="../images/slides/slide-3.webp"
+                                        alt="Alanya & orphans"
+                                        width="900"
+                                        height="450"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+                </section>
             </main>
 
             <footer class="footer" id="footer">
@@ -744,5 +788,17 @@
         </div>
 
         <script async src="../js/main.js"></script>
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+        <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+        </script>
     </body>
 </html>
