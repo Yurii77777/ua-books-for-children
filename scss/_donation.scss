@@ -10,7 +10,7 @@
     width: 100vw;
     margin-left: calc(50% - 50vw);
     background-color: $white-clr;
-    padding: 10px 0;
+    padding: 4vw 0;
 
     &__content-container {
         @include flex-column-betw-cent;
@@ -19,41 +19,21 @@
         margin: 0 auto;
         background-color: $active-lang-clr;
         border-radius: 19px;
-        padding: 10px 10px 20px;
-    }
-
-    &__title > span,
-    &__donate > span,
-    &__contact > span,
-    &__payment-subtitle > span,
-    &__payment-details-subparagraph > span,
-    &__payment-details-paragraph > span,
-    &__payment-details-comment > span {
-        display: none;
-    }
-
-    &__title > span.active,
-    &__donate > span.active,
-    &__contact > span.active,
-    &__payment-subtitle > span.active,
-    &__payment-details-subparagraph > span.active,
-    &__payment-details-paragraph > span.active,
-    &__payment-details-comment > span.active {
-        display: block;
+        padding: 3vw 4vw 6vw;
     }
 
     &__title {
-        font-size: 2rem;
+        font-size: calc(2rem + 10 * (100vw / 1920));
         font-weight: 800;
         text-align: center;
         letter-spacing: 1px;
-        margin-bottom: 20px;
+        margin-bottom: 3vw;
     }
 
     &__buttons-wrapper {
         @include flex-column-betw-cent;
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 3vw;
     }
 
     &__donate,
@@ -72,7 +52,7 @@
     }
 
     &__payment-subtitle {
-        font-size: 1.5rem;
+        font-size: calc(1.5rem + 10 * (100vw / 1920));
         font-weight: 800;
         letter-spacing: 3px;
         text-transform: uppercase;
@@ -84,7 +64,12 @@
         width: inherit;
     }
 
-    &__payment-details-comment,
+    &__payment-details-comment {
+        font-size: calc(1.2rem + 8 * (100vw / 1920));
+        text-align: center;
+        text-decoration: underline;
+    }
+
     &__payment-details-correspondents {
         font-size: 1.2rem;
         text-align: center;
@@ -97,19 +82,20 @@
     }
 
     &__payment-details-subparagraph {
-        font-size: 1.3rem;
+        font-size: calc(1.3rem + 10 * (100vw / 1920));
         letter-spacing: 1px;
     }
 
     &__payment-details-paragraph {
-        font-size: 1.4rem;
+        font-size: calc(1.4rem + 12 * (100vw / 1920));
         font-weight: 600;
         margin-bottom: 10px;
         color: $black-clr;
     }
 
     &__qr-quick-pay {
-        width: 200px;
+        min-width: 200px;
+        max-width: 250px;
         margin: 20px auto;
     }
 
@@ -122,7 +108,6 @@
     .donation {
         &__buttons-wrapper {
             flex-direction: row;
-            margin-bottom: 40px;
         }
 
         &__donate {
@@ -141,38 +126,6 @@
         &__payment-details-uah,
         &__payment-details-euro {
             width: 50%;
-        }
-    }
-}
-
-@media (min-width: 992px) {
-    .donation {
-        padding-top: 40px;
-
-        &__content-container {
-            padding: 30px 40px 60px;
-        }
-
-        &__title {
-            font-size: 3rem;
-            margin-bottom: 40px;
-        }
-
-        &__payment-subtitle,
-        &__payment-details-subparagraph {
-            font-size: 1.8rem;
-        }
-
-        &__payment-details-comment {
-            font-size: 1.5rem;
-        }
-
-        &__payment-details-paragraph {
-            font-size: 1.9rem;
-        }
-
-        &__qr-quick-pay {
-            width: 250px;
         }
     }
 }
