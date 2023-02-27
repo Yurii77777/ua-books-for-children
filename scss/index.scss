@@ -85,6 +85,11 @@ body {
     margin: 0 auto;
 }
 
+.swiper-slide {
+    display: flex !important;
+    justify-content: center;
+}
+
 *[x-apple-data-detectors],
 .x-gmail-data-detectors,
 .x-gmail-data-detectors *,
